@@ -14,6 +14,8 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('Server running!');
 });
+
+console.log(process.env.JWT_SECRET)
 // Routes
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);

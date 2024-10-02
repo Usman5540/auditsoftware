@@ -1,5 +1,8 @@
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken')
+const dotenv=require("dotenv")
+dotenv.config()
+console.log(process.env.JWT_SECRET)
 // Signup Controller
 exports.signup = async (req, res) => {
     try {
