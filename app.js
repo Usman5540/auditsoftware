@@ -11,7 +11,9 @@ const app = express();
 
 // Middleware to parse JSON
 app.use(express.json());
-
+app.get('/', (req, res) => {
+  res.send('Server running!');
+});
 // Routes
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
