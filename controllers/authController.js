@@ -30,7 +30,7 @@ exports.signup = async (req, res) => {
 res.status(201).json({
     status: 'success',
     message: 'User created successfully',
-    redirectUrl: '/customerProfile', // Optional: if you want to specify a redirect
+
 });
     } catch (err) {
         res.status(400).json({
