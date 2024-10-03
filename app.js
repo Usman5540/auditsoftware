@@ -27,7 +27,7 @@ app.use('/admin', adminRoutes);
 
 // MongoDB connection
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(process.env.MONGOO_URI, {
   
   })
   .then(() => console.log('DB connection successful'))
