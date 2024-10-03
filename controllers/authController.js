@@ -4,6 +4,9 @@ const dotenv=require("dotenv")
 dotenv.config()
 console.log(process.env.JWT_SECRET)
 // Signup Controller
+const jwt = require('jsonwebtoken');
+const User = require('../models/userModel'); // Adjust the path to your User model accordingly
+
 exports.signup = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -27,11 +30,19 @@ exports.signup = async (req, res) => {
 
         // Create the new user
         const newUser = await User.create({ email, password });
-res.status(201).json({
-    status: 'success',
-    message: 'User created successfully',
 
-});
+        // Generate a JWT token
+        const token = jwt.sign(
+            { id: newUser._id, email: newUser.email }, // Payload
+            process.env.JWT_SECRET, // Secret key from environment variables
+            { expiresIn: '10y' } // Token expiration time
+        );
+
+        res.status(201).json({
+            status: 'success',
+            message: 'User created successfully',
+            token // Send the token in the response
+        });
     } catch (err) {
         res.status(400).json({
             status: 'fail',
@@ -39,6 +50,7 @@ res.status(201).json({
         });
     }
 };
+
 
 //Login Controller
 exports.login = async (req, res) => {
