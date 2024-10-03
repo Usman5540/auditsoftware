@@ -28,12 +28,7 @@ exports.signup = async (req, res) => {
         // Create the new user
         const newUser = await User.create({ email, password });
 
-        res.status(201).json({
-            status: 'success',
-            data: {
-                user: newUser,
-            },
-        });
+            res.status(201).redirect('/customerProfile');
     } catch (err) {
         res.status(400).json({
             status: 'fail',
