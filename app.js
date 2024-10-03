@@ -9,6 +9,12 @@ dotenv.config();
 // Create Express app
 const app = express();
 
+app.use(cors({
+    origin: '*', // Allows all origins
+    methods: ['GET', 'POST', 'DELETE', 'PUT'], // Allowed methods
+    allowedHeaders: ['Content-Type']
+}));
+// app.use(cors()); 
 // Middleware to parse JSON
 app.use(express.json());
 app.get('/', (req, res) => {
