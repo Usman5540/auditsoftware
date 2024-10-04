@@ -95,11 +95,11 @@ exports.getCustomerCount = async (req, res) => {
 exports.getCustomerList = async (req, res) => {
     try {
         // Selecting specific fields based on the user schema
-        const customers = await User.find().select('userDetails.logoPicture userDetails.company userDetails.contactPerson mobileNumber _id');
+        const customers = await User.find().select(' userDetails.company userDetails.contactPerson mobileNumber _id');
         const customerList = customers.map((customer, index) => ({
             sr: index + 1,
             id: customer._id, // Adding the customer ID
-            logo: customer.userDetails.logoPicture,
+            // logo: customer.userDetails.logoPicture,
             company: customer.userDetails.company,
             person: customer.userDetails.contactPerson,
             phone: customer.mobileNumber
