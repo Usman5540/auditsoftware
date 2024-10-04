@@ -5,15 +5,15 @@ const bcrypt = require('bcryptjs');
 const fileSchema = new mongoose.Schema({
     filename: {
         type: String, // Filename should be a string
-        required: true,
+        // required: true,
     },
     path: {
         type: String,
-        required: true,
+        // required: true,
     },
     mimetype: {
         type: String,
-        required: true,
+        // required: true,
     },
 }, { _id: false });
 
