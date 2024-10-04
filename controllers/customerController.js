@@ -94,16 +94,19 @@ exports.getCustomerCount = async (req, res) => {
 // Get a list of customers (Sr., logo, companyName, contactPerson, phone)
 exports.getCustomerList = async (req, res) => {
     try {
-        // Selecting specific fields based on the user schema
-        const customers = await User.find().select(' User.company User.contactPerson mobileNumber _id');
+        // Fetching users and selecting relevant fields
+        const customers = await User.find().select('userDetails.mobileNumber _id');
+        
+        // Mapping over the customers and constructing the response
         const customerList = customers.map((customer, index) => ({
             sr: index + 1,
             id: customer._id, // Adding the customer ID
-            // logo: customer.userDetails.logoPicture,
-            company: customer.User.company,
-            person: customer.User.contactPerson,
+            company: customer.userDetails.company,   // Correct field access
+            person: customer.userDetails.contactPerson, // Correct field access
             phone: customer.mobileNumber
         }));
+
+        // Sending the response
         res.status(200).json({
             status: 'success',
             data: { customerList }
@@ -112,6 +115,7 @@ exports.getCustomerList = async (req, res) => {
         res.status(400).json({ status: 'fail', message: err.message });
     }
 };
+
 
 // Get detailed customer information by ID
 exports.getCustomerDetail = async (req, res) => {
