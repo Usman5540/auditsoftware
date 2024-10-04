@@ -94,21 +94,21 @@ exports.getCustomerCount = async (req, res) => {
 // Get a list of customers (Sr., logo, companyName, contactPerson, phone)
 exports.getCustomerList = async (req, res) => {
     try {
-        // Fetch users and select relevant fields including logo, company, contactPerson, and phone
-        const customers = await User.find().select('userDetails.mobileNumber userDetails.company userDetails.contactPerson userDetails.logoPicture _id');
+        // Fetch users and select the relevant fields
+        const customers = await User.find().select('mobileNumber userDetails.company userDetails.contactPerson userDetails.logoPicture _id');
         
         // Map over the customers and construct the response
         const customerList = customers.map((customer, index) => {
             const userDetails = customer.userDetails || {};  // Ensure userDetails exists
             const logoPicture = userDetails.logoPicture || {};  // Ensure logoPicture exists
-            
+
             return {
                 sr: index + 1,
-                id: customer._id, // Adding the customer ID
-                logo: logoPicture.path || null, // Safely access logoPicture.path, return null if it doesn't exist
-                company: userDetails.company || null,   // Safely access company name, return null if it doesn't exist
-                contactPerson: userDetails.contactPerson || null, // Safely access contact person, return null if it doesn't exist
-                phone: customer.mobileNumber || null  // Safely access mobile number
+                id: customer._id, 
+                logo: logoPicture.path || null,  // Safely access logoPicture.path
+                company: userDetails.company || null,  // Safely access company
+                contactPerson: userDetails.contactPerson || null,  // Safely access contact person
+                phone: customer.mobileNumber || null  // Access mobileNumber directly from the root level
             };
         });
 
