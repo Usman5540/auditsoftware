@@ -94,20 +94,25 @@ exports.getCustomerCount = async (req, res) => {
 // Get a list of customers (Sr., logo, companyName, contactPerson, phone)
 exports.getCustomerList = async (req, res) => {
     try {
-        // Fetching users and selecting relevant fields including logo, company, contactPerson, and phone
+        // Fetch users and select relevant fields including logo, company, contactPerson, and phone
         const customers = await User.find().select('userDetails.mobileNumber userDetails.company userDetails.contactPerson userDetails.logoPicture _id');
         
-        // Mapping over the customers and constructing the response
-        const customerList = customers.map((customer, index) => ({
-            sr: index + 1,
-            id: customer._id, // Adding the customer ID
-            logo: customer.userDetails.logoPicture ? customer.userDetails.logoPicture.path : null, // Check if logo exists
-            company: customer.userDetails.company,   // Company name
-            contactPerson: customer.userDetails.contactPerson, // Contact person
-            phone: customer.mobileNumber // Mobile number
-        }));
+        // Map over the customers and construct the response
+        const customerList = customers.map((customer, index) => {
+            const userDetails = customer.userDetails || {};  // Ensure userDetails exists
+            const logoPicture = userDetails.logoPicture || {};  // Ensure logoPicture exists
+            
+            return {
+                sr: index + 1,
+                id: customer._id, // Adding the customer ID
+                logo: logoPicture.path || null, // Safely access logoPicture.path, return null if it doesn't exist
+                company: userDetails.company || null,   // Safely access company name, return null if it doesn't exist
+                contactPerson: userDetails.contactPerson || null, // Safely access contact person, return null if it doesn't exist
+                phone: customer.mobileNumber || null  // Safely access mobile number
+            };
+        });
 
-        // Sending the response
+        // Send the response
         res.status(200).json({
             status: 'success',
             data: { customerList }
@@ -116,6 +121,7 @@ exports.getCustomerList = async (req, res) => {
         res.status(400).json({ status: 'fail', message: err.message });
     }
 };
+
 
 
 
