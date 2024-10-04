@@ -1,12 +1,8 @@
-const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
-
-dotenv.config();
-console.log(process.env.JWT_SECRET);
-
-// Signup Controller
-// Signup Controller
+const User = require('../models/userModel')
+const dotenv=require("dotenv")
+dotenv.config()
+console.log(process.env.JWT_SECRET)
 exports.signup = async (req, res) => {
     try {
         const { 
@@ -56,6 +52,9 @@ exports.signup = async (req, res) => {
                 path: req.file.path,
                 mimetype: req.file.mimetype
             };
+        } else {
+            // If no file is uploaded, logoPicture remains null
+            logoPicture = null;
         }
 
         // Create the new user with email and password
@@ -96,9 +95,7 @@ exports.signup = async (req, res) => {
         });
     }
 };
-
-
-// Login Controller
+//Login Controller
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -121,7 +118,7 @@ exports.login = async (req, res) => {
         }
 
         // Check if the password matches
-        const isPasswordCorrect = await user.correctPassword(password);
+        const isPasswordCorrect = await user.correctPassword(password, user.password);
         if (!isPasswordCorrect) {
             return res.status(401).json({
                 status: 'fail',

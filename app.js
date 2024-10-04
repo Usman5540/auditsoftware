@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
-const { protect } = require('./middlewares/auth');
+
 
 // Load environment variables
 dotenv.config();
@@ -21,14 +21,8 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('Server running!');
 });
-app.get('/protected-route', protect, (req, res) => {
-  res.status(200).json({
-      status: 'success',
-      data: {
-          user: req.user,
-      }
-  });
-});
+
+
 // Routes
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
@@ -47,4 +41,7 @@ mongoose
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`App running on port ${port}`);
+
 });
+
+
