@@ -21,11 +21,11 @@ const fileSchema = new mongoose.Schema({
 const userDetailsSchema = new mongoose.Schema({
     company: {
         type: String,
-        required: [true, 'Company is required'],
+        // required: [true, 'Company is required'],
     },
     companyEmail: { // Added field for company email
         type: String,
-        required: [true, 'Company email is required'],
+        // required: [true, 'Company email is required'],
         validate: {
             validator: function(v) {
                 return /^\S+@\S+\.\S+$/.test(v); // Basic email validation
@@ -35,15 +35,15 @@ const userDetailsSchema = new mongoose.Schema({
     },
     contactPerson: {
         type: String,
-        required: [true, 'Contact person is required'],
+        // required: [true, 'Contact person is required'],
     },
     designation: {
         type: String,
-        required: [true, 'Designation is required'],
+        // required: [true, 'Designation is required'],
     },
     address: {
         type: String,
-        required: [true, 'Address is required'],
+        // required: [true, 'Address is required'],
     },
     website: {
         type: String,
@@ -55,7 +55,7 @@ const userDetailsSchema = new mongoose.Schema({
     },
     phoneNumber: {
         type: String,
-        required: [true, 'Phone number is required'],
+        // required: [true, 'Phone number is required'],
         validate: {
             validator: function(v) {
                 return /^\+?([0-9]{1,3})?[-.\s]?(\(?[0-9]{1,4}\)?)?[-.\s]?[0-9]{3,4}[-.\s]?[0-9]{3,4}$/.test(v);
@@ -90,7 +90,7 @@ const userSchema = new mongoose.Schema({
     },
     mobileNumber: {
         type: String,
-        required: [true, 'Mobile number is required'],
+        // required: [true, 'Mobile number is required'],
         validate: {
             validator: function(v) {
                 return /\d{10}/.test(v);  // Basic validation for mobile number
