@@ -21,11 +21,11 @@ const fileSchema = new mongoose.Schema({
 const userDetailsSchema = new mongoose.Schema({
     company: {
         type: String,
-        // required: [true, 'Company is required'],
+        required: [true, 'Company is required'],
     },
     companyEmail: { // Added field for company email
         type: String,
-        // required: [true, 'Company email is required'],
+        required: [true, 'Company email is required'],
         validate: {
             validator: function(v) {
                 return /^\S+@\S+\.\S+$/.test(v); // Basic email validation
@@ -35,15 +35,15 @@ const userDetailsSchema = new mongoose.Schema({
     },
     contactPerson: {
         type: String,
-        // required: [true, 'Contact person is required'],
+        required: [true, 'Contact person is required'],
     },
     designation: {
         type: String,
-        // required: [true, 'Designation is required'],
+        required: [true, 'Designation is required'],
     },
     address: {
         type: String,
-        // required: [true, 'Address is required'],
+        required: [true, 'Address is required'],
     },
     website: {
         type: String,
@@ -51,7 +51,7 @@ const userDetailsSchema = new mongoose.Schema({
     },
     city: {
         type: String,
-        // required: [true, 'City is required'], // Uncomment if city is mandatory
+        required: [true, 'City is required'], // Uncomment if city is mandatory
     },
     phoneNumber: {
         type: String,
