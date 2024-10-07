@@ -12,8 +12,12 @@ dotenv.config();
 // Create Express app
 const app = express();
 
-// Enable CORS for all requests
-app.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+};
+
+app.use(cors(corsOptions));
 
 // Middleware to parse JSON
 app.use(express.json());
